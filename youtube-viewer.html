@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Proxy Lite</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+  <h1>YouTube Viewer</h1>
+  <form id="videoForm">
+    <input type="text" id="videoURL" placeholder="Enter YouTube URL" size="50">
+    <button type="submit">Watch</button>
+  </form>
+  <div id="player" style="margin-top: 20px;"></div>
+
+  <script>
+    document.getElementById('videoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var url = document.getElementById('videoURL').value;
+      var videoID = '';
+
+      if (url.includes('youtube.com/watch?v=')) {
+        videoID = url.split('v=')[1].split('&')[0];
+      } else if (url.includes('youtu.be/')) {
+        videoID = url.split('youtu.be/')[1];
+      }
+
+      if (videoID) {
+        document.getElementById('player').innerHTML =
+          `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${videoID}" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        document.getElementById('player').innerHTML = '<p>Invalid YouTube URL.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
